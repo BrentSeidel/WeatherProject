@@ -3,3 +3,8 @@
 
 # Ada Library Information
 *.ali
+
+# Other gnat/Ada stuff
+gnatinspect.*
+*.bexch
+*.cswi
