@@ -8,11 +8,13 @@ with Ada.Integer_Text_IO;
 --
 with BBS.BBB.i2c;
 with BBS.BBB.i2c.PCA9685;
-with WeatherConstants;
+with BBS.BBB.i2c.BME280;
+with WeatherCommon;
 
 procedure test is
    port : BBS.BBB.i2c.i2c_interface := BBS.BBB.i2c.i2c_new;
    servo : BBS.BBB.i2c.PCA9685.PS9685_ptr := BBS.BBB.i2c.PCA9685.i2c_new;
+   sensor : BBS.BBB.i2c.BME280.BME280_ptr := BBS.BBB.i2c.BME280.i2c_new;
    selection : integer;
    error : integer;
    channel : integer;
@@ -23,9 +25,10 @@ begin
    Ada.Text_IO.Put_Line("Configuring the i2c interface");
    port.configure("/dev/i2c-1", "/dev/null", "/dev/null");
    servo.configure(port, BBS.BBB.i2c.PCA9685.addr_0, error);
+   sensor.configure(port, BBS.BBB.i2c.BME280.addr, error);
    for channel in BBS.BBB.i2c.PCA9685.channel loop
-      servo.set_servo_range(channel, WeatherConstants.servo_min,
-                            WeatherConstants.servo_max);
+      servo.set_servo_range(channel, WeatherCommon.servo_min,
+                            WeatherCommon.servo_max);
    end loop;
    loop
       Ada.Text_IO.Put_Line("Options are:");
@@ -35,6 +38,7 @@ begin
       Ada.Text_IO.Put_Line("  3 - Set channel");
       Ada.Text_IO.Put_Line("  4 - Sleep on");
       Ada.Text_IO.Put_Line("  5 - Sleep off");
+      Ada.Text_IO.Put_Line("  6 - Dump sensor");
       Ada.Text_IO.Put("Select option: ");
       Ada.Integer_Text_IO.Get(selection);
       exit when selection = 0;
@@ -56,6 +60,21 @@ begin
             servo.sleep(true, error);
          when 5 =>
             servo.sleep(false, error);
+         when 6 =>
+            sensor.start_conversion(error);
+            loop
+               exit when sensor.data_ready(error);
+            end loop;
+            sensor.read_data(error);
+            Ada.Text_IO.Put("Temperature: ");
+            Ada.Integer_Text_IO.Put(sensor.get_temp, width => 12, base => 16);
+            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_temp) & ")");
+            Ada.Text_IO.Put("Pressure:    ");
+            Ada.Integer_Text_IO.Put(sensor.get_press, width => 12, base => 16);
+            Ada.Text_IO.New_Line;
+            Ada.Text_IO.Put("Humidity:    ");
+            Ada.Integer_Text_IO.Put(sensor.get_hum, width => 12, base => 16);
+            Ada.Text_IO.New_Line;
          when others =>
             Ada.Text_IO.Put_Line("Unknown option, try again");
       end case;

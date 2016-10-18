@@ -2,6 +2,22 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 18-Oct-2016
+Fortunately I had purchased two BME280 sensors.  I soldered the header onto the
+second one and hooked it up and could talk to it.  Sadly the example code in the
+datasheet for computing the calibrated values is not particularly clear C code so
+converting it to Ada is rather tedious.  Still this shouldn't be technically
+difficult.
+
+The main remaining risk is having adequate drive current for the servos.  I have
+been unable to find any hints of the current draw for them.  So I am hoping that
+with small servos with little load, the 5V output pin on the Raspberry PI will
+supply adequate current.  If not, an external supply would be needed.  This would
+be ugly, but would work.
+
+The last hurdle will be packaging this up nicely.  I have a couple of ideas, but
+am not sure if they will work.
+
 ## 17-Oct-2016
 I have been working on a set of I/O routines for the BeagleBone Black and
 written in Ada (it's my project, I can write it in whatever language I want).
