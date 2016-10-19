@@ -71,10 +71,10 @@ begin
             Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_temp) & ")");
             Ada.Text_IO.Put("Pressure:    ");
             Ada.Integer_Text_IO.Put(sensor.get_press, width => 12, base => 16);
-            Ada.Text_IO.New_Line;
+            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_press) & ")");
             Ada.Text_IO.Put("Humidity:    ");
             Ada.Integer_Text_IO.Put(sensor.get_hum, width => 12, base => 16);
-            Ada.Text_IO.New_Line;
+            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_hum) & ")");
          when others =>
             Ada.Text_IO.Put_Line("Unknown option, try again");
       end case;

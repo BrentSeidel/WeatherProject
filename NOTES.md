@@ -2,6 +2,13 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 19-Oct-2016
+The temperature calibration seems to be working.  At least the results are reasonable.
+The pressure calibration is giving results that are way off.  This will need some
+work to figure out just where I deviated from the example code.  It's probably a
+parenthesis out of place or switching a "/" and a "*".  Once I get this working I will
+tackle the humidity calibration.
+
 ## 18-Oct-2016
 Fortunately I had purchased two BME280 sensors.  I soldered the header onto the
 second one and hooked it up and could talk to it.  Sadly the example code in the
