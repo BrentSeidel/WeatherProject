@@ -9,6 +9,7 @@ with Ada.Integer_Text_IO;
 with BBS.BBB.i2c;
 with BBS.BBB.i2c.PCA9685;
 with BBS.BBB.i2c.BME280;
+with BBS.units;
 with WeatherCommon;
 
 procedure test is
@@ -20,6 +21,9 @@ procedure test is
    channel : integer;
    time_on : integer;
    time_off : integer;
+   press : BBS.units.press_p;
+   temp : BBS.units.temp_c;
+   hum : float;
 begin
    Ada.Text_IO.Put_Line("Test and calibration program");
    Ada.Text_IO.Put_Line("Configuring the i2c interface");
@@ -66,15 +70,18 @@ begin
                exit when sensor.data_ready(error);
             end loop;
             sensor.read_data(error);
+            temp := sensor.get_temp;
+            press := sensor.get_press;
+            hum := sensor.get_hum;
             Ada.Text_IO.Put("Temperature: ");
             Ada.Integer_Text_IO.Put(sensor.get_temp, width => 12, base => 16);
-            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_temp) & ")");
+            Ada.Text_IO.Put_Line(" (" & float'Image(float(temp)) & ")");
             Ada.Text_IO.Put("Pressure:    ");
             Ada.Integer_Text_IO.Put(sensor.get_press, width => 12, base => 16);
-            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_press) & ")");
+            Ada.Text_IO.Put_Line(" (" & float'Image(float(press)) & ")");
             Ada.Text_IO.Put("Humidity:    ");
             Ada.Integer_Text_IO.Put(sensor.get_hum, width => 12, base => 16);
-            Ada.Text_IO.Put_Line(" (" & integer'Image(sensor.get_hum) & ")");
+            Ada.Text_IO.Put_Line(" (" & float'Image(hum) & ")");
          when others =>
             Ada.Text_IO.Put_Line("Unknown option, try again");
       end case;

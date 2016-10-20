@@ -2,6 +2,15 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 20-Oct-2016
+Added humidity calibration and it is giving reasonable numbers.  The air pressure
+is still about 1% of what it should be.  There is definately something wrong here.
+
+An important thing to keep in mind is to ensure that the value that you are
+displaying is actually the value that you think you are displaying.  Once the
+pressure and humidity routines were changed to return the calibrated values
+rather than the raw values, the pressure is now reasonable, but humidity isn't.
+
 ## 19-Oct-2016
 The temperature calibration seems to be working.  At least the results are reasonable.
 The pressure calibration is giving results that are way off.  This will need some
