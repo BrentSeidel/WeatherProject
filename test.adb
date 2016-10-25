@@ -3,6 +3,7 @@
 --
 with Ada.Text_IO;
 with Ada.Integer_Text_IO;
+with Ada.Float_Text_IO;
 --
 -- Other packages
 --
@@ -21,6 +22,7 @@ procedure test is
    channel : integer;
    time_on : integer;
    time_off : integer;
+   int_value : integer;
    press : BBS.units.press_p;
    temp : BBS.units.temp_c;
    hum : float;
@@ -43,6 +45,10 @@ begin
       Ada.Text_IO.Put_Line("  4 - Sleep on");
       Ada.Text_IO.Put_Line("  5 - Sleep off");
       Ada.Text_IO.Put_Line("  6 - Dump sensor");
+      Ada.Text_IO.Put_Line("  7 - Set temperature servo");
+      Ada.Text_IO.Put_Line("  8 - Set pressure servo");
+      Ada.Text_IO.Put_Line("  9 - Set humidity servo");
+      Ada.Text_IO.Put_Line(" 10 - Process data flow");
       Ada.Text_IO.Put("Select option: ");
       Ada.Integer_Text_IO.Get(selection);
       exit when selection = 0;
@@ -76,12 +82,54 @@ begin
             Ada.Text_IO.Put("Temperature: ");
             Ada.Integer_Text_IO.Put(sensor.get_temp, width => 12, base => 16);
             Ada.Text_IO.Put_Line(" (" & float'Image(float(temp)) & ")");
+            Ada.Text_IO.Put("Temperature: ");
+            Ada.Float_Text_IO.Put(float(temp), fore => 3, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("C");
             Ada.Text_IO.Put("Pressure:    ");
             Ada.Integer_Text_IO.Put(sensor.get_press, width => 12, base => 16);
             Ada.Text_IO.Put_Line(" (" & float'Image(float(press)) & ")");
+            Ada.Text_IO.Put("Pressure: ");
+            Ada.Float_Text_IO.Put(float(press), fore => 6, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("Pa");
             Ada.Text_IO.Put("Humidity:    ");
             Ada.Integer_Text_IO.Put(sensor.get_hum, width => 12, base => 16);
             Ada.Text_IO.Put_Line(" (" & float'Image(hum) & ")");
+            Ada.Text_IO.Put("Humidity: ");
+            Ada.Float_Text_IO.Put(float(hum), fore => 3, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("%");
+         when 7 =>
+            Ada.Text_IO.Put("Enter temperature: ");
+            Ada.Integer_Text_IO.Get(int_value);
+            WeatherCommon.show_temp(servo, BBS.units.temp_c(int_value));
+         when 8 =>
+            Ada.Text_IO.Put("Enter pressure: ");
+            Ada.Integer_Text_IO.Get(int_value);
+            WeatherCommon.show_press(servo, BBS.units.press_p(int_value));
+         when 9 =>
+            Ada.Text_IO.Put("Enter humidity: ");
+            Ada.Integer_Text_IO.Get(int_value);
+            WeatherCommon.show_hum(servo, float(int_value));
+         when 10 =>
+            sensor.start_conversion(error);
+            loop
+               exit when sensor.data_ready(error);
+            end loop;
+            sensor.read_data(error);
+            temp := sensor.get_temp;
+            press := sensor.get_press;
+            hum := sensor.get_hum;
+            Ada.Text_IO.Put("Temperature: ");
+            Ada.Float_Text_IO.Put(float(temp), fore => 3, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("C");
+            Ada.Text_IO.Put("Pressure: ");
+            Ada.Float_Text_IO.Put(float(press), fore => 6, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("Pa");
+            Ada.Text_IO.Put("Humidity: ");
+            Ada.Float_Text_IO.Put(float(hum), fore => 3, aft => 2, exp => 0);
+            Ada.Text_IO.Put_Line("%");
+            WeatherCommon.show_temp(servo, temp);
+            WeatherCommon.show_press(servo, press);
+            WeatherCommon.show_hum(servo, hum);
          when others =>
             Ada.Text_IO.Put_Line("Unknown option, try again");
       end case;

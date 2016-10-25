@@ -2,6 +2,42 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 25-Oct-2016
+After adding the C code to the project and running it in parallel with my Ada code,
+I found that my code produced the same results as the C code.  This suggested that
+the problem was elsewhere.  After some more searching, I discovered that one of
+the calibration parameters for humidity was being read from the wrong location.
+Correcting this produced reasonable results.  Another example where the problem
+isn't necessarily where you think it is.
+
+The software is basically done, except perhaps for some polishing.  Now to try
+and build something to mount the hardware on.
+
+## 24-Oct-2016
+Adding a separate 5V power supply solved the problem with the servos.  Added the
+initial code for the project (weather.adb).  Once everything is tested and working,
+adding "/home/pi/Ada/WeatherProject/weather &" to /etc/rc.local will cause the
+program to run when the Raspberry PI boots.  There are basically two things yet
+to do for this project.
+
+1. Solve the problem with the humidity value
+
+2. Build and mount the hardware
+
+## 21-Oct-2016
+The humidity is still coming out at about 0.11%.  While I live in the desert
+southwest, this is still a little lower that I would expect.  It does increase a
+little when I breath on it so it seems to be doing something.
+
+I updated the test program to add some more options.  You can now set the servos
+to point to specific temperature, pressure, or humidity values.  There's also an
+option to read the sensor values and set all three servos.  This is basically
+what the final program will do in each processing frame.
+
+With all three servos hooked up, operation is a bit erratic.  This is probably
+because the 5V output on the Raspberry PI can't supply enough current.  I will
+have to find an external 5V power supply to test.
+
 ## 20-Oct-2016
 Added humidity calibration and it is giving reasonable numbers.  The air pressure
 is still about 1% of what it should be.  There is definately something wrong here.
