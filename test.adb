@@ -29,7 +29,7 @@ procedure test is
 begin
    Ada.Text_IO.Put_Line("Test and calibration program");
    Ada.Text_IO.Put_Line("Configuring the i2c interface");
-   port.configure("/dev/i2c-1", "/dev/null", "/dev/null");
+   port.configure("/dev/i2c-1");
    servo.configure(port, BBS.BBB.i2c.PCA9685.addr_0, error);
    sensor.configure(port, BBS.BBB.i2c.BME280.addr, error);
    for channel in BBS.BBB.i2c.PCA9685.channel loop
@@ -54,9 +54,9 @@ begin
       exit when selection = 0;
       case selection is
          when 1 =>
-            servo.set_full_on(BBS.BBB.i2c.PCA9685.ALL_CHAN, error);
-         when 2 =>
             servo.set_full_off(BBS.BBB.i2c.PCA9685.ALL_CHAN, error);
+         when 2 =>
+            servo.set_full_on(BBS.BBB.i2c.PCA9685.ALL_CHAN, error);
          when 3 =>
             Ada.Text_IO.Put("Enter channel number: ");
             Ada.Integer_Text_IO.Get(channel);

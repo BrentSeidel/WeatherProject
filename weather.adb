@@ -23,13 +23,14 @@ procedure weather is
    press : BBS.units.press_p;
    temp : BBS.units.temp_c;
    hum : float;
+   state : boolean := false;
 begin
    BBS.BBB.i2c.debug := false;
    if (debug) then
       Ada.Text_IO.Put_Line("Test and calibration program");
       Ada.Text_IO.Put_Line("Configuring the i2c interface");
    end if;
-   port.configure("/dev/i2c-1", "/dev/null", "/dev/null");
+   port.configure("/dev/i2c-1");
    servo.configure(port, BBS.BBB.i2c.PCA9685.addr_0, error);
    sensor.configure(port, BBS.BBB.i2c.BME280.addr, error);
    for channel in BBS.BBB.i2c.PCA9685.channel loop
@@ -62,6 +63,15 @@ begin
       WeatherCommon.show_temp(servo, temp);
       WeatherCommon.show_press(servo, press);
       WeatherCommon.show_hum(servo, hum);
+      if (state) then
+         servo.set_full_on(WeatherCommon.act_1, error);
+         servo.set_full_off(WeatherCommon.act_2, error);
+         state := false;
+      else
+         servo.set_full_on(WeatherCommon.act_2, error);
+         servo.set_full_off(WeatherCommon.act_1, error);
+         state := true;
+      end if;
       delay 1.0;
    end loop;
 --   Ada.Text_IO.Put_Line("Good-bye.");

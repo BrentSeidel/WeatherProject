@@ -39,6 +39,11 @@ package WeatherCommon is
    hum_chan : constant BBS.BBB.i2c.PCA9685.channel := 8;
    hum_range_chan : constant BBS.BBB.i2c.PCA9685.channel := 9;
    --
+   -- Activity LEDs
+   --
+   act_1 : constant BBS.BBB.i2c.PCA9685.channel := 12;
+   act_2 : constant BBS.BBB.i2c.PCA9685.channel := 13;
+   --
    -- Procedures to set the servos to point to the sensor values.
    --
    procedure show_temp(servo: BBS.BBB.i2c.PCA9685.PS9685_ptr; temp : BBS.units.temp_c);

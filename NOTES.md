@@ -2,6 +2,23 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 28-Oct-2016
+I constructed a crude case and installed everything.  As I was doing this, I
+decided that in addition to the out of range LEDs for each dial, a couple of
+other LEDs were needed to give some indication that the system was active.
+
+The project is basically done.  At this point, one can come up with all sorts of
+ideas to extend the project in different directions.
+
+Now to take some pictures...
+
+## 27-Oct-2016
+I am a better programmer and electronics person than a cabinet maker.  My first
+idea was to glue some pieces of acrylic together to mount the project.  This was
+my first try working with acrylic and after multiple chips and cracks I have
+abandoned this approach in favour of plywood.  I do have some experience working
+with wood so this should turn out better.
+
 ## 25-Oct-2016
 After adding the C code to the project and running it in parallel with my Ada code,
 I found that my code produced the same results as the C code.  This suggested that

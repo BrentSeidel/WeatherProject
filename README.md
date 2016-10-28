@@ -33,3 +33,21 @@ I am using a Pi 3 which is overkill.
 3. (optional) created a directory "Ada" for all the Ada stuff
 
 4. download the WeatherProject, BBS-Ada and BBS-BBB-Ada projects from GitHub.
+
+5. Build a case for the project and install the components.  I am not a cabinet
+maker and my case is rather crude.  I wouldn't necessarily recommend it to anyone.
+
+6. Wire everything up and use the test program to check that everything works.
+
+7. Using the test program, you can set the temperature, pressure, and humidity
+servos to known value.  These can be used to mark your scale.
+
+8. Add the weather program to /etc/rc.local so that it will automatically start
+when the system boots up.
+
+9. Congratulations!  You're finished.
+
+10. Going further.  There are a number of things that you can do to extend this
+project in many ways.  A couple of suggestions are logging the data for later
+review, or broadcasting the data over your local network for display on other
+systems.
