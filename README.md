@@ -62,7 +62,7 @@ change if I wanted to dedicate one.  I also used a small breadboard as it made
 it easier to make wiring changes during development.  For a more perminant installation,
 you may want to do more soldering.
 
-![Wiring detail](Wiring,JPB)
+![Wiring detail](Wiring.JPG)
 
 This shows some details of the wiring on the breadboad.  The large blue board
 is the 16 channel PWM controller.  The small blue board is the temperature,
