@@ -2,6 +2,20 @@
 
 This is a collection of thoughts and notes about the weather sensor project.
 
+## 31-Oct-2016
+Added pictures showing the finished plywood mounting.  The only thing left is to
+add some scales for the dials.  Each dial has a red LED above it that lights when
+the value is out of range of the dial.  There are also two green LEDs between the
+dials that flash alternately for each processing frame to inidicate activity.
+Altogether these use up 8 channels of the 16 channel PWM controller so one could
+add more LEDs and/or servos.  Also none of the Rapsberry PI's GPIO pins have been
+used.  One could use these to add switches or other on/off sensors.
+
+After letting the system run for a while, there is are some occasional glitches
+with the servos.  One of the servos also seems to have some stripped gears, but
+it still works.  As this is my first project working with servos, I probably have
+a few subtleties of them to learn.
+
 ## 28-Oct-2016
 I constructed a crude case and installed everything.  As I was doing this, I
 decided that in addition to the out of range LEDs for each dial, a couple of
