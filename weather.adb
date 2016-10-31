@@ -19,7 +19,7 @@ procedure weather is
    servo : BBS.BBB.i2c.PCA9685.PS9685_ptr := BBS.BBB.i2c.PCA9685.i2c_new;
    sensor : BBS.BBB.i2c.BME280.BME280_ptr := BBS.BBB.i2c.BME280.i2c_new;
    error : integer;
-   debug : constant boolean := true;
+   debug : constant boolean := false;
    press : BBS.units.press_p;
    temp : BBS.units.temp_c;
    hum : float;
@@ -74,5 +74,4 @@ begin
       end if;
       delay 1.0;
    end loop;
---   Ada.Text_IO.Put_Line("Good-bye.");
 end;

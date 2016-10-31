@@ -14,4 +14,13 @@ Here's what I used (I got most of these from AdaFruit):
 
 5. Half size breadboard (AdaFruit part number 64)
 
-6. Assorted jumper wires.
+6. 3x Red LEDs for out of range indicators
+
+7. 2x Green LEDs for activity indicators
+
+8. 5 120 ohm resistors for LED current limiting.  The value isn't critical.  These
+are just what I had laying around.
+
+9. Assorted jumper wires.
+
+10. Material for making a case.
